@@ -2,7 +2,6 @@ import styles from '../css/Hero.module.css'
 
 
 function Hero({movie}){
-    console.table(movie)
 
     return(
         <section>

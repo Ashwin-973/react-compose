@@ -4,50 +4,76 @@ import { useState,useEffect } from "react";
 export function MovieList(){
 
     const[movies,setMovies]=useState([]);
+    const [state,setState]=useState('idle');
+
+    
 
     useEffect(()=>{
-        try{
-            let data=null;
-            const movieFetch=async()=>
-            {
+        const STATE_MACHINE={
+        IDLE:'idle',
+        LOADING:'loading',
+        SUCCESS: 'success',
+        ERROR:'error'
+    }
+
+        const movieFetch=async()=>
+        {
+            try{
+                setState(STATE_MACHINE.LOADING);
                 const options = {
                     method: 'GET',
                     headers: {
                     accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjdkOGJlZGZhNzU1ZjUyM2ZkOTZjZDAzOWQ2YWNmZCIsIm5iZiI6MTc0NDg3MTIyOC43NTQsInN1YiI6IjY4MDA5ZjNjZjM5YzczMDEyNWQ5NDYxYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7TPAA13AkGYoS18BuuWiawgm3zaPhv78ubbIbXBYHOo'
+                    Authorization: `Bearer ${import.meta.env.TMDB_SECRET}`
                     }
-            };
-                const res=fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',options);
+                };
+                const res=await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',options);
 
                 if(!res.ok) throw new Error(`Invalid Status Code : ${res.status}`)
 
-                data=await res.json(); 
+                const data=await res.json();
                 if(!data) throw new Error(`Data is empty`)
 
                 setMovies(data?.results);
-
+                setState(STATE_MACHINE.SUCCESS);
             }
-            movieFetch()
+            catch(e){
+                setState(STATE_MACHINE.ERROR);
+                console.error(e.message);
+            }
+        }
 
-        }
-        catch(e){
-            console.error(e.message);
-        }
-        
+        movieFetch()
+
     },[])
 
-
     return(
-            movies? movies.map((m,idx)=>(
-                <div key={idx}  style={{
-                    marginBottom:'8px'
-                }}>
-                    <p style={{
-                        fontSize:'20px'
-                    }}>Title : ${m.original_title}</p>
-                    <p>Synposis : ${m.overview}</p>
-                </div>
-            )) : <p>List is Empty!!</p>
+        <>
+            {
+                state==='error' && <p style={{
+                    fontSize:'24px',
+                    color:'red'
+                }}> ERROR </p>
+            }
+            {
+                state==='loading' && <p style={{
+                    fontSize:'24px',
+                    color:'gray'
+                }}> LOADING</p>
+            }
+            {
+                state === 'success' && movies.map((m,idx)=>(
+                    <div key={idx} style={{
+                        marginBottom:'96px'
+                    }}>
+                        <p style={{
+                            fontSize:'20px'
+                        }}>Title : {m.original_title}</p>
+                        <p>Synopsis : {m.overview}</p>
+                    </div>
+                ))
+            }
+        </>
     )
 
 }
