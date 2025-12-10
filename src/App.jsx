@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import { Thrillers } from "./components/Thrillers";
 import { Footer } from "./components/Footer";
 
 
@@ -32,6 +33,7 @@ export default function App(){
         <>
             <Header onMovieChange={onMovieChange}/>
             <Hero movie={movies.find(m => m.name===currentMovie)}/>
+            <Thrillers/>
             <Footer/>
         </>
     )
