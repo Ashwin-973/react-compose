@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero";
 import { Thrillers } from "./components/Thrillers";
 import { NomineeForm } from "./components/NomineeForm";
 import { MovieList } from "./components/MovieList";
+import { CarRouter } from "./components/CarRouter";
 import { Footer } from "./components/Footer";
 
 
@@ -38,6 +39,7 @@ export default function App(){
             <Thrillers/>
             <NomineeForm/>
             <MovieList/>
+            <CarRouter/>
             <Footer/>
         </>
     )
