@@ -6,16 +6,20 @@ function Car({cars}){
 
     const car=cars.find(c=>c.brand===brand)
 
+   if (!car) {
+    return <div>Car brand "{brand}" not found</div>;
+}
+
     return(
-        <div>
+        <article>
             <h3>{car.model}</h3>
             <h4>{car.brand}</h4>
             <img style={{
                 maxHeight:'50vh'
-            }}  src={car.image}/>
+            }}  src={car.image} alt={`${car.brand} ${car.model}`}/>
             <h5>{car.price}</h5>
             <h6>{car.type}</h6>
-        </div>
+        </article>
     )
 }
 

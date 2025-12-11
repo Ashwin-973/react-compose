@@ -18,12 +18,12 @@ export function CarLayout(){
                 <h2>Let's Talk Cars</h2>
                 <nav>
                     <ul>
-                        <li><NavLink to="/" style={ (isActive)=>(
+                        <li><NavLink to="/" style={ ({isActive})=>(
                             {
                                 color:isActive? 'green' : 'red'
                             }
                         )} >Home</NavLink></li>
-                        <li><NavLink to="/cars" style={ (isActive)=>(
+                        <li><NavLink to="/cars" style={ ({isActive})=>(
                             {
                                 color:isActive? 'green' : 'red'
                             }

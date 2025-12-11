@@ -42,8 +42,8 @@ export function CarRouter(){
         <Routes>
                 <Route path="/" element={<CarLayout/>}>
                     <Route index element={<CarHome/>}/>
-                    <Route path="/cars" element={<Cars cars={cars}/>}/>
-                    <Route path="/cars/:brand" element={<Car cars={cars}/>}/>
+                    <Route path="cars" element={<Cars cars={cars}/>}/>
+                    <Route path="cars/:brand" element={<Car cars={cars}/>}/>
                 </Route>
         </Routes>
     )
