@@ -1,41 +1,8 @@
-import {Routes,Route,useLocation,Link} from 'react-router-dom'
+import {Routes,Route} from 'react-router-dom'
 import { Cars } from './Cars'
 import { Car } from './Car'
-
-function CarHome(){
-
-    const location=useLocation();
-    console.log(location)
-
-
-    return (
-    <>
-        <nav>
-            <ul>
-                <li ><Link to="/" style={ location.pathname==='/'?
-                {
-                    color:'green'
-
-                }: {
-                    color:'red'
-
-                }} >Home</Link></li>
-                <li><Link to="/cars" style={location.pathname==='/cars'?
-                {
-                    color:'green'
-
-                }: {
-                    color:'red'
-
-                }}>Cars</Link></li>
-            </ul>
-        </nav>
-        <p>I see you're looking for some sexy cars</p>
-    </>
-)
-}
-
-
+import { CarHome } from './CarHome'
+import { CarLayout } from './CarLayout'
 
 
 
@@ -73,9 +40,11 @@ export function CarRouter(){
 
     return(
         <Routes>
-            <Route path="/" element={<CarHome/>}/>
-            <Route path="/cars" element={<Cars cars={cars}/>}/>
-            <Route path="/cars/:brand" element={<Car cars={cars}/>}/>
+                <Route path="/" element={<CarLayout/>}>
+                    <Route index element={<CarHome/>}/>
+                    <Route path="/cars" element={<Cars cars={cars}/>}/>
+                    <Route path="/cars/:brand" element={<Car cars={cars}/>}/>
+                </Route>
         </Routes>
     )
 }

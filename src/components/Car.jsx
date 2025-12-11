@@ -1,34 +1,13 @@
-import { useParams,useLocation,Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function Car({cars}){
     const {brand}=useParams();
-    const location=useLocation();
 
 
     const car=cars.find(c=>c.brand===brand)
 
     return(
         <div>
-            <nav>
-            <ul>
-                <li ><Link to="/" style={ location.pathname==='/'?
-                {
-                    color:'green'
-
-                }: {
-                    color:'red'
-
-                }} >Home</Link></li>
-                <li><Link to="/cars" style={location.pathname.startsWith('/cars')?
-                {
-                    color:'green'
-
-                }: {
-                    color:'red'
-
-                }}>Cars</Link></li>
-            </ul>
-        </nav>
             <h3>{car.model}</h3>
             <h4>{car.brand}</h4>
             <img style={{
